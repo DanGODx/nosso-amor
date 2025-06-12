@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Dia dos Namorados 💖</title>
+  <style>
+    /* Fundo e corpo */
+    body {
+      margin: 0;
+      background-color: black;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Palavras "eu te amo" */
+    .amor {
+      position: absolute;
+      color: red;
+      font-size: 20px;
+      animation: cair linear infinite;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes cair {
+      0% {
+        transform: translateY(-100px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    /* Botão centralizado */
+    .botao-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .botao {
+      background-color: #ff4d6d;
+      color: white;
+      font-size: 24px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 15px red;
+      transition: 0.3s ease;
+    }
+
+    .botao:hover {
+      background-color: #ff1f4a;
+      box-shadow: 0 0 25px pink;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botão com a data no centro -->
+  <div class="botao-container">
+    <button class="botao" onclick="irParaSegundaPagina()">12-06-2025</button>
+  </div>
+
+  <script>
+    // Redirecionar para a segunda página
+    function irParaSegundaPagina() {
+      window.location.href = "pagina2.html";
+    }
+
+    // Criar "eu te amo" caindo
+    function criarChuva() {
+      const amor = document.createElement("div");
+      amor.classList.add("amor");
+      amor.innerText = "eu te amo ❤️";
+      amor.style.left = Math.random() * window.innerWidth + "px";
+      amor.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+      document.body.appendChild(amor);
+
+      // Remover depois que cair
+      setTimeout(() => {
+        amor.remove();
+      }, 6000);
+    }
+
+    // Chuva contínua
+    setInterval(criarChuva, 200);
+  </script>
+
+</body>
+</html>

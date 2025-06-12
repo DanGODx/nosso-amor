@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosso Amor 💞</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #ffe6e6, #ffd6e0);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+      color: #880e4f;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    #contador {
+      font-size: 28px;
+      margin: 20px 0 40px;
+      color: #c2185b;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .menu button {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 250px;
+    }
+
+    .menu button:hover {
+      background-color: #d81b60;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sou a pessoa mais feliz do mundo há...</h1>
+  <div id="contador">Calculando...</div>
+
+  <div class="menu">
+    <button onclick="location.href='jogo.html'">🧠 Jogo da Memória</button>
+    <button onclick="location.href='homenagem.html'">💌 Texto de Homenagem</button>
+    <button onclick="location.href='album.html'">📸 Álbum de Fotos</button>
+  </div>
+
+  <script>
+    // Data de início do relacionamento (DD/MM/AAAA → cuidado com ordem no JS)
+    const dataInicio = new Date(2020, 7, 7); // Mês é 0-indexado: 7 = agosto
+
+    function atualizarContador() {
+      const hoje = new Date();
+      const diff = hoje - dataInicio;
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById('contador').innerText = `${dias} dias de amor! 💖`;
+    }
+
+    atualizarContador();
+  </script>
+
+</body>
+</html>

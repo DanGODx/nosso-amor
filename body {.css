@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  background-color: black;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.amor {
+  position: absolute;
+  color: red;
+  font-size: 20px;
+  animation: cair 5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes cair {
+  0% {
+    transform: translateY(-100px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.botao-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.botao {
+  background-color: #ff4d6d;
+  color: white;
+  font-size: 24px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 15px red;
+  transition: 0.3s ease;
+}
+
+.botao:hover {
+  background-color: #ff1f4a;
+  box-shadow: 0 0 25px pink;
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Memória 💖</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ffe6e6;
+      margin: 0;
+      position: relative;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 150px);
+      gap: 20px;
+    }
+
+    .card {
+      width: 150px;
+      height: 150px;
+      background: #ff4d6d;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      display: none; /* As imagens começam ocultas */
+    }
+
+    .card.flipped img {
+      display: block; /* As imagens aparecem quando a carta for virada */
+    }
+
+    .card.matched {
+      background: #4caf50;
+      pointer-events: none;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      color: #880e4f;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+      margin: 30px auto;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+
+    /* Estilos dos botões */
+    .back-btn, .heart-btn {
+      position: absolute;
+      top: 20px;
+      background: transparent;
+      border: none;
+      font-size: 30px;
+      color: #880e4f;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .back-btn {
+      left: 20px;
+    }
+
+    .heart-btn {
+      right: 20px;
+    }
+
+    .back-btn:hover, .heart-btn:hover {
+      color: #ff4d6d;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Botões de Navegação -->
+  <button class="back-btn" onclick="window.history.back()">←</button>
+  <button class="heart-btn" onclick="window.location.href='pagina1.html'">❤️</button>
+
+  <h1>Jogo da Memória 💖</h1>
+  <div class="game-board" id="game-board">
+    <!-- Os cards do jogo vão aparecer aqui -->
+  </div>
+
+  <button onclick="resetGame()">Reiniciar Jogo</button>
+
+  <script>
+    // Imagens (substitua com o caminho correto das suas 5 fotos)
+    const images = [
+      'foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg',
+      'foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg', 'foto5.jpg'
+    ];
+
+    let flippedCards = [];
+    let matchedCards = [];
+    let isGameActive = true;
+
+    // Embaralhar as imagens
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Criar o tabuleiro do jogo
+    function createBoard() {
+      const gameBoard = document.getElementById('game-board');
+      const shuffledImages = shuffle([...images]);
+      shuffledImages.forEach(image => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.setAttribute('data-image', image);
+
+        const img = document.createElement('img');
+        img.src = 'images/' + image;  // Corrigido para garantir que o caminho esteja correto
+        card.appendChild(img);
+
+        card.addEventListener('click', flipCard);
+        gameBoard.appendChild(card);
+      });
+    }
+
+    // Virar a carta
+    function flipCard(event) {
+      if (!isGameActive) return;
+
+      const card = event.target;
+      if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+      card.classList.add('flipped');
+      flippedCards.push(card);
+
+      if (flippedCards.length === 2) {
+        checkMatch();
+      }
+    }
+
+    // Verificar se as cartas viradas são iguais
+    function checkMatch() {
+      const [card1, card2] = flippedCards;
+
+      if (card1.getAttribute('data-image') === card2.getAttribute('data-image')) {
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        matchedCards.push(card1, card2);
+        flippedCards = [];
+
+        if (matchedCards.length === images.length) {
+          setTimeout(() => alert('Você venceu! 🏆'), 500);
+        }
+      } else {
+        setTimeout(() => {
+          card1.classList.remove('flipped');
+          card2.classList.remove('flipped');
+          flippedCards = [];
+        }, 1000);
+      }
+    }
+
+    // Reiniciar o jogo
+    function resetGame() {
+      isGameActive = true;
+      flippedCards = [];
+      matchedCards = [];
+      document.getElementById('game-board').innerHTML = '';
+      createBoard();
+    }
+
+    // Iniciar o jogo
+    createBoard();
+  </script>
+
+</body>
+</html>
